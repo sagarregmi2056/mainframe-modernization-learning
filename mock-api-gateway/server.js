@@ -15,14 +15,13 @@ const cicsProxy = createProxyMiddleware('/catalog', {
     target: 'http://localhost:3000',
     pathRewrite: {'^/catalog': ''},
     changeOrigin: true,
-    onProxyReq: (proxyReq, req, res) => {
-        // Example of request transformation (like COBOL COMMAREA)
+    onProxyReq: (proxyReq, req, res) => { // Example of request transformation (like COBOL COMMAREA)
         if (req.method === 'POST' && req.path.includes('/orders')) {
             console.log('Transforming order request to COMMAREA format');
         }
     },
     onProxyRes: (proxyRes, req, res) => {
-        // Example of response transformation
+       
         console.log(`CICS Response: ${proxyRes.statusCode}`);
     }
 });
@@ -49,22 +48,22 @@ const imsProxy = createProxyMiddleware('/phonebook', {
     }
 });
 
-// Monitoring middleware for each service
+// Monitoring middleware 
 app.use('/catalog', monitoringMiddleware('cics'));
 app.use('/employees', monitoringMiddleware('db2'));
 app.use('/phonebook', monitoringMiddleware('ims'));
 
-// Route proxies
+// Routing proxies
 app.use('/catalog', cicsProxy);
 app.use('/employees', db2Proxy);
 app.use('/phonebook', imsProxy);
 
-// Metrics endpoint
+// we can call this endpoint to get the metrics
 app.get('/metrics', (req, res) => {
     res.json(getMetrics());
 });
 
-// API documentation endpoint
+// API documentation endpoint, we can call this endpoint to get the API documentation
 app.get('/', (req, res) => {
     res.json({
         message: "Z/OS Modernization Mock API Gateway",
@@ -104,7 +103,6 @@ app.get('/', (req, res) => {
     });
 });
 
-// Start server
 app.listen(port, () => {
     console.log(`API Gateway running at http://localhost:${port}`);
     console.log('Available endpoints:');

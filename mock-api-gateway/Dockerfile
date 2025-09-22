@@ -1,5 +1,5 @@
 # Use Node.js LTS version
-FROM node:18-slim
+FROM node:alpine
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -8,13 +8,13 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install --only=production
 
 # Copy app source
 COPY . .
 
 # Expose port
-EXPOSE 3000
+EXPOSE 4000
 
 # Start command
 CMD [ "node", "server.js" ]
