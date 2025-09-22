@@ -184,21 +184,7 @@ docker-compose up --build gateway
 
 ```
 
-## Future Enhancements
 
-### Containerization (In Progress)
-I'm working on:
-1. Creating Dockerfiles for each service
-2. Setting up Docker Compose for easy deployment
-3. Preparing Kubernetes manifests for Minikube
-4. Adding monitoring and scaling capabilities
-
-### Additional Features Planned
-- Enhanced security features
-- More complex data transformations
-- Better error handling
-- Performance optimizations
-- Extended monitoring capabilities
 
 ## Lessons Learned
 1. **Real-world Challenges**: Not everything is immediately accessible (like the IBM Docker image), but there are always alternative ways to learn and practice.
