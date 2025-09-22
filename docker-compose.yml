@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  gateway:
+    build: ./mock-api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - CICS_SERVICE_URL=http://cics:3000
+      - DB2_SERVICE_URL=http://db2:3001
+      - IMS_SERVICE_URL=http://ims:3002
+    depends_on:
+      - cics
+      - db2
+      - ims
+
+  cics:
+    build: ./simple-cics-mock-api
+    expose:
+      - "3000"
+
+  db2:
+    build: ./simple-db2-mock-api
+    expose:
+      - "3001"
+
+  ims:
+    build: ./simple-ims-mock-api
+    expose:
+      - "3002"
